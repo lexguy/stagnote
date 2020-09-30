@@ -1,31 +1,31 @@
 /*
  * @Author: xuwei
  * @Date: 2020-08-10 12:33:53
- * @LastEditTime: 2020-09-29 12:43:22
+ * @LastEditTime: 2020-09-30 18:19:40
  * @LastEditors: xuwei
  * @Description:
  */
-const { app, BrowserWindow, Notification } = require("electron");
+const { app, BrowserWindow, Notification, ipcMain } = require("electron");
+const StagWindow = require("./base/component/stagwindow");
 
 app.setAppUserModelId(process.execPath);
 
+// console.info("lujing", app.getPath("userData"));
+let baseWin = null;
 function createWindow() {
   // 创建浏览器窗口
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-  });
-  // 并且为你的应用加载index.html
-  win.loadFile("./renderer/index.html");
+  baseWin = new StagWindow(
+    { width: 800, height: 600 },
+    "./renderer/index/index.html"
+  );
 
-  console.info("support", Notification.isSupported());
-  const myNotification = new Notification("Title", {
-    body: "Lorem Ipsum Dolor Sit Amet",
-  });
-  myNotification.show();
+  // 主进程消息
+
+  // const myNotification = new Notification({
+  //   title: "22",
+  //   body: "Lorem Ipsum Dolor Sit Amet",
+  // });
+  // myNotification.show();
 
   // 打开开发者工具
   // win.webContents.openDevTools();
@@ -52,5 +52,18 @@ app.on("activate", () => {
   }
 });
 
-// 您可以把应用程序其他的流程写在在此文件中
-// 代码
+//-----------------------------code----------------------------
+
+app.setAppUserModelId("stagnote");
+
+let newTaskWindow = null;
+ipcMain.on("ipc_create_task_window", () => {
+  newTaskWindow = new StagWindow(
+    { width: 600, height: 300 },
+    "./renderer/newtask/newtask.html"
+  );
+});
+ipcMain.on("ipc_close_new_task", (event) => {
+  baseWin.webContents.send("fresh_list");
+  newTaskWindow && newTaskWindow.close();
+});

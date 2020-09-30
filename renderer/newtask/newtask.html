@@ -1,0 +1,72 @@
+<!--
+ * @Author: xuwei
+ * @Date: 2020-09-30 09:48:39
+ * @LastEditTime: 2020-09-30 14:36:47
+ * @LastEditors: xuwei
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container-lg">
+      <div class="input-group mb-3 mt-4">
+        <div class="input-group-prepend">
+          <button
+            id="dropdown_btn"
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Dropdown
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </div>
+        <input
+          id="main_input"
+          type="text"
+          class="form-control"
+          aria-label="Text input with dropdown button"
+        />
+      </div>
+
+      <div class="input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="addon-wrapping">资料/备注</span>
+        </div>
+        <input
+          id="remarks_input"
+          type="text"
+          class="form-control"
+          placeholder="url..."
+          aria-label="Username"
+          aria-describedby="addon-wrapping"
+        />
+      </div>
+      <button
+        id="confirm_btn"
+        type="button"
+        class="btn btn-primary btn-lg btn-block mt-4"
+      >
+        确认添加
+      </button>
+    </div>
+  </body>
+  <script src="./newtask.js"></script>
+</html>
