@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-30 14:50:45
- * @LastEditTime: 2020-10-09 18:04:20
+ * @LastEditTime: 2020-10-10 00:29:37
  * @LastEditors: xuwei
  * @Description
  */
@@ -42,7 +42,7 @@ class DataStore extends Store {
 
   getDayData = () => {
     // console.info("list", this.get(key));
-    return this.get(key);
+    return this.get(key) || [];
   };
 
   addSingleData = (item) => {

@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-29 12:29:23
- * @LastEditTime: 2020-10-09 18:35:46
+ * @LastEditTime: 2020-10-10 01:22:00
  * @LastEditors: xuwei
  * @Description:
  */
@@ -40,13 +40,18 @@ ipcRenderer.on("fresh_list", () => {
   freshTodoList();
 });
 
+function onTodoAbandonPress(id) {
+  console.info("todo", id);
+}
+
 function freshTodoList() {
   const list = store.getDayData();
-  // console.info("list", list);
   let html = `<div class="list-group mt-4" id="main_list">`;
   const time = "12.30";
   list.forEach((element) => {
-    // html += ` <button type="button" class="list-group-item list-group-item-action">${element.title}</button>`;
+    // 这里的 params 中的 ID 在传参时要保证形式是一个字符串，即带引号的 "xxx" 的格式。不带引号则被识别为一个变量
+    // const params = "'" + element.id + "'";
+    const params = "`" + element.id + "`";
     html += `<button type="button" class="list-group-item list-group-item-action">
       <div style="float: left">
         <h5>${time}</h5>
@@ -56,7 +61,7 @@ function freshTodoList() {
         <span style="margin-left: 20px">${element.remarks}</span>
       </div>`;
     if (element.status === ISTATUS.TODO) {
-      html += `<div class="f_center operate_btn" id="todo_finish_${element.id}">
+      html += `<div class="f_center operate_btn" id="todo_finish" onclick="onTodoAbandonPress(${params})">
       <span style="color: blanchedalmond">完成</span>
       </div>
       <div class="f_center operate_btn" id="todo_abandon">
@@ -75,6 +80,7 @@ function freshTodoList() {
   });
   const listDoc = $("main_list");
   listDoc.innerHTML = html;
+
   setTimeout(() => {
     initOperateEle();
   }, 0);
@@ -83,14 +89,19 @@ function freshTodoList() {
 //---------------舍弃 完成 的点击---------------------
 
 function initOperateEle() {
-  const btnTodoFinish = $("todo_finish");
+  const btnTodoFinish = document.querySelectorAll(
+    "f_center .operate_btn .finish"
+  );
+  console.info("btn", btnTodoFinish);
+
   const btnTodoAbandon = $("todo_abandon");
   const btnAbandon = $("abandon");
 
-  btnTodoAbandon.addEventListener("click", () => {
-    // console.info("舍弃点击");
-  });
-  btnTodoFinish.addEventListener("click", () => {
-    console.info("完成点击");
-  });
+  // btnTodoFinish.addEventListener("click", () => {
+  //   console.info("完成点击");
+  // });
+
+  // btnTodoAbandon.addEventListener("click", () => {
+  //   // console.info("舍弃点击");
+  // });
 }
