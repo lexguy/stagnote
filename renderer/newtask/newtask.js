@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-30 09:48:47
- * @LastEditTime: 2020-09-30 18:10:02
+ * @LastEditTime: 2020-10-09 09:52:44
  * @LastEditors: xuwei
  * @Description:
  */
@@ -26,10 +26,10 @@ function confirmInput() {
   if (mainInput.value.length === 0 && remarksInput.value.length === 0) {
     // alert("空");
   } else {
-    // store.addSingleData({
-    //   title: mainInput.value,
-    //   remarks: remarksInput.value,
-    // });
+    store.addSingleData({
+      title: mainInput.value,
+      remarks: remarksInput.value,
+    });
     ipcRenderer.send("ipc_close_new_task");
   }
 }

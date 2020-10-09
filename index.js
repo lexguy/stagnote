@@ -1,16 +1,17 @@
 /*
  * @Author: xuwei
  * @Date: 2020-08-10 12:33:53
- * @LastEditTime: 2020-09-30 18:19:40
+ * @LastEditTime: 2020-10-09 09:47:31
  * @LastEditors: xuwei
  * @Description:
  */
 const { app, BrowserWindow, Notification, ipcMain } = require("electron");
 const StagWindow = require("./base/component/stagwindow");
 
-app.setAppUserModelId(process.execPath);
+// app.setAppUserModelId(process.execPath);
 
-// console.info("lujing", app.getPath("userData"));
+console.info("lujing", app.getPath("userData"));
+
 let baseWin = null;
 function createWindow() {
   // 创建浏览器窗口
