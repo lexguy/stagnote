@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-30 09:48:47
- * @LastEditTime: 2020-10-09 09:52:44
+ * @LastEditTime: 2020-10-09 18:03:01
  * @LastEditors: xuwei
  * @Description:
  */
@@ -9,6 +9,7 @@
 const { registerEnterKeyEvent, $ } = require("../../base/bind");
 const store = require("../../base/store/index");
 const { ipcRenderer } = require("electron");
+const { ISTATUS } = require("../constants");
 
 const dropdownBtn = $("dropdown_btn");
 const mainInput = $("main_input");
@@ -29,6 +30,8 @@ function confirmInput() {
     store.addSingleData({
       title: mainInput.value,
       remarks: remarksInput.value,
+      time: new Date().getTime(),
+      status: ISTATUS.TODO,
     });
     ipcRenderer.send("ipc_close_new_task");
   }

@@ -1,0 +1,13 @@
+.f_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.operate_btn {
+  float: right;
+  height: 40px;
+  padding: 0% 10px;
+  border-radius: 20px;
+  /* background-color: #a00; */
+  border: solid 1px #333;
+}

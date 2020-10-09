@@ -2,7 +2,7 @@
   "name": "stagnote",
   "version": "1.0.0",
   "description": "a application \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D \u001b[Ddesk\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C\u001b[ application \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C \u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C by xuwei()\u001b[Dnickname is terminal),just a note tthat can point out u at the right time.",
-  "main": "index.js",
+  "main": "main.js",
   "dependencies": {
     "bootstrap": "^4.5.2",
     "electron-store": "^6.0.0",
@@ -13,7 +13,7 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    "start": "nodemon --watch index.js --exec electron .",
+    "start": "nodemon --watch main.js --exec electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "xuwei/terminal",
