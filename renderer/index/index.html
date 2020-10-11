@@ -1,14 +1,7 @@
-<!--
- * @Author: xuwei
- * @Date: 2020-10-09 19:44:35
- * @LastEditTime: 2020-10-11 20:29:17
- * @LastEditors: xuwei
- * @Description: 
--->
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>StagNote</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta
       http-equiv="Content-Security-Policy"
@@ -22,56 +15,14 @@
   </head>
   <body>
     <div class="container">
-      <input type="text" />
-      <button id="send_notify">发送通知</button>
-      <button id="add_new_task">新窗口</button>
-
-      <h4>Todo</h4>
-      <div class="list-group mb-4" id="main_list">
-        <div type="button" class="list-group-item list-group-item-action">
-          <div style="float: left">
-            <h5>12:30</h5>
-          </div>
-          <div style="float: left">
-            <h5 style="margin-left: 20px">AAAA</h5>
-            <span style="margin-left: 20px">aaaa</span>
-          </div>
-          <div class="f_center operate_btn">
-            <span style="color: blanchedalmond">完成</span>
-          </div>
-          <div class="f_center operate_btn">
-            <span style="color: blanchedalmond">舍弃</span>
-          </div>
-        </div>
-        <h4>Finish</h4>
-        <div class="list-group mb-4" id="main_list">
-          <button type="button" class="list-group-item list-group-item-action">
-            <div style="float: left">
-              <h5>12:30</h5>
-            </div>
-            <div style="float: left">
-              <h5 style="margin-left: 20px">AAAA</h5>
-              <span style="margin-left: 20px">aaaa</span>
-            </div>
-            <div class="f_center operate_btn">
-              <span style="color: blanchedalmond">完成</span>
-            </div>
-            <div class="f_center operate_btn">
-              <span style="color: blanchedalmond">舍弃</span>
-            </div>
-          </button>
-        <!-- <button type="button" class="list-group-item list-group-item-action">
-          Dapibus ac facilisis in
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Morbi leo risus
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Porta ac consectetur ac
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Vestibulum at eros
-        </button> -->
+      <div id="fun" style="margin: 20px 0">
+        <button id="send_notify">发送通知</button>
+        <button id="add_new_task">新任务</button>
+      </div>
+      <div id="main_view">
+        <div id="todo_list"></div>
+        <div id="finish_list"></div>
+        <div id="abandon_list"></div>
       </div>
     </div>
   </body>

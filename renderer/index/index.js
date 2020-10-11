@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-29 12:29:23
- * @LastEditTime: 2020-10-11 20:22:42
+ * @LastEditTime: 2020-10-11 23:25:42
  * @LastEditors: xuwei
  * @Description:
  */
@@ -17,6 +17,7 @@ const newTaskBtn = document.getElementById("add_new_task");
 
 document.addEventListener("DOMContentLoaded", () => {
   // freshTodoList();
+  freshAll();
 });
 
 sendBtn.addEventListener("click", () => {
@@ -36,72 +37,124 @@ newTaskBtn.addEventListener("click", () => {
   ipcRenderer.send("ipc_create_task_window");
 });
 
-ipcRenderer.on("fresh_list", () => {
+ipcRenderer.on("ipc_addtask_fresh", () => {
   freshTodoList();
+  // freshAll();
 });
 
-function freshTodoList() {
-  const list = store.getDayData();
-  let html = `<div class="list-group mt-4" id="main_list">`;
-  const time = "12.30";
-  list.forEach((element) => {
-    // 这里的 params 中的 ID 在传参时要保证形式是一个字符串，即带引号的 "xxx" 的格式。不带引号则被识别为一个变量
-    // const params = "'" + element.id + "'";
-    const params = "`" + element.id + "`";
-    html += `<button type="button" class="list-group-item list-group-item-action">
-      <div style="float: left">
-        <h5>${time}</h5>
-      </div>
-      <div style="float: left">
-        <h5 style="margin-left: 20px">${element.title}</h5>
-        <span style="margin-left: 20px">${element.remarks}</span>
-      </div>`;
-    if (element.status === ISTATUS.TODO) {
-      html += `
-      <div class="f_center operate_btn" id="todo_abandon" style="margin-left:10px" onclick="onTodoAbandonPress(${params})">
-        <span style="color: #a00">舍弃</span>
-      </div>
-      <div class="f_center operate_btn" id="todo_finish" onclick="onTodoFinishPress(${params})">
-        <span style="color: #333">完成</span>
-      </div>
-      `;
-    } else if (element.status === ISTATUS.FINISH) {
-      html += `<div class="f_center operate_btn" id="finish">
-      <span style="color: #666">已完成</span>
-      </div>`;
-    } else if (element.status === ISTATUS.ABANDON) {
-      html += `<div class="f_center operate_btn" id="abandon" onclick="onAbandonPress(${params})">
-      <span style="color: #999;text-decoration: line-through">已被舍弃</span>
-      </div>`;
-    }
-    html += `</button>`;
-  });
-  const listDoc = $("main_list");
-  listDoc.innerHTML = html;
-
-  setTimeout(() => {
-    initOperateEle();
-  }, 0);
-}
-
-//---------------舍弃 完成 的点击---------------------
+//---------------舍弃 完成 的点击 start
 
 function onTodoAbandonPress(id) {
-  console.info("todo", id);
+  console.info("abandon", id);
   store.changeItemStatus(id, ISTATUS.ABANDON);
   freshTodoList();
+  freshAbandonList();
 }
 
 function onTodoFinishPress(id) {
   console.info("todo", id);
   store.changeItemStatus(id, ISTATUS.FINISH);
   freshTodoList();
+  freshFinishList();
 }
 
 // 重新打开
 function onAbandonPress(id) {
   store.changeItemStatus(id, ISTATUS.TODO);
   freshTodoList();
+  freshAbandonList();
+}
+
+//--------------end
+
+// ------fresh---------
+
+function freshAll() {
+  freshTodoList();
+  freshFinishList();
+  freshAbandonList();
+}
+
+// 刷新 Todo 列表
+function freshTodoList() {
+  const todoDoc = $("todo_list");
+  const todoList = store
+    .getDayData()
+    .filter((item) => item.status === ISTATUS.TODO);
+  console.info("todoList", todoList);
+  if (todoList.length > 0) {
+    let todohtml = `<h4>Todo</h4><div class="list-group mb-4 mt-4" id="main_list">`;
+    todoList.forEach((element) => {
+      const params = "`" + element.id + "`";
+      todohtml += `
+      <div type="button" class="list-group-item">
+        <div style="float: left"><h5>12:30</h5></div>
+        <div style="float: left">
+          <h5 style="margin-left: 20px">${element.title}</h5>
+          <span style="margin-left: 20px">${element.remarks}</span>
+        </div>
+        <span class="opebase" onclick="onTodoAbandonPress(${params})">舍弃</span>
+        <span class="opebase" style="margin-right:10px" onclick="onTodoFinishPress(${params})">完成</span>
+      </div>
+    `;
+    });
+    todohtml += `</div>`;
+    todoDoc.innerHTML = todohtml;
+  } else {
+    todoDoc.innerHTML = ``;
+  }
+}
+
+function freshFinishList() {
+  const finishDoc = $("finish_list");
+  const finishList = store
+    .getDayData()
+    .filter((item) => item.status === ISTATUS.FINISH);
+  if (finishList.length > 0) {
+    let finishhtml = `<h4>已完成</h4><div class="list-group mb-4 mt-4" id="main_list">`;
+    finishList.forEach((element) => {
+      const params = "`" + element.id + "`";
+      finishhtml += `
+      <div type="button" class="list-group-item">
+        <div style="float: left"><h5>12:30</h5></div>
+        <div style="float: left">
+          <h5 style="margin-left: 20px">${element.title}</h5>
+          <span style="margin-left: 20px">${element.remarks}</span>
+        </div>
+        <span class="opebase">已完成</span>
+      </div>
+    `;
+    });
+    finishhtml += `</div>`;
+    finishDoc.innerHTML = finishhtml;
+  }
+}
+
+function freshAbandonList() {
+  const abandonDoc = $("abandon_list");
+  const abandonList = store
+    .getDayData()
+    .filter((item) => item.status === ISTATUS.ABANDON);
+  if (abandonList.length > 0) {
+    let abandonhtml = `<h4>舍弃</h4><div class="list-group mb-4 mt-4" id="main_list">`;
+    abandonList.forEach((element) => {
+      const params = "`" + element.id + "`";
+      abandonhtml += `
+      <div type="button" class="list-group-item">
+        <div style="float: left"><h5>12:30</h5></div>
+        <div style="float: left">
+          <h5 style="margin-left: 20px">${element.title}</h5>
+          <span style="margin-left: 20px">${element.remarks}</span>
+        </div>
+        <span class="opebase ope_abandon textdel" onclick="onAbandonPress(${params})">已被舍弃</span>
+      </div>
+    `;
+    });
+    abandonhtml += `</div>`;
+    abandonDoc.innerHTML = abandonhtml;
+  } else {
+    abandonDoc.innerHTML = ``;
+  }
 }
 
 function initOperateEle() {
@@ -112,12 +165,4 @@ function initOperateEle() {
 
   const btnTodoAbandon = $("todo_abandon");
   const btnAbandon = $("abandon");
-
-  // btnTodoFinish.addEventListener("click", () => {
-  //   console.info("完成点击");
-  // });
-
-  // btnTodoAbandon.addEventListener("click", () => {
-  //   // console.info("舍弃点击");
-  // });
 }

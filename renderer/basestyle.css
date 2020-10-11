@@ -2,7 +2,7 @@ h4 {
   font-size: 24px;
   line-height: 24px;
   padding: 0;
-  margin: 10px 0;
+  /* margin: 15px 0; */
 }
 .f_center {
   display: flex;
@@ -16,4 +16,37 @@ h4 {
   border-radius: 20px;
   /* background-color: #a00; */
   border: solid 1px #333;
+}
+
+.operate_btn:hover span {
+  color: #a00;
+}
+
+.finish_button:hover {
+  background-color: rgb(38, 85, 38);
+}
+
+.opebase {
+  float: right;
+  display: block;
+  padding: 0 15px;
+  height: 36px;
+  font-size: 16px;
+  line-height: 36px;
+  text-align: center;
+  color: #666;
+  border: 1px solid #333;
+  border-radius: 20px;
+}
+
+.ope_abandon {
+}
+
+.textdel {
+  text-decoration: line-through;
+}
+
+.ope_abandon:hover {
+  color: #fff;
+  background-color: rgb(23, 63, 23);
 }

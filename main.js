@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-08-10 12:33:53
- * @LastEditTime: 2020-10-09 09:47:31
+ * @LastEditTime: 2020-10-11 21:41:25
  * @LastEditors: xuwei
  * @Description:
  */
@@ -65,6 +65,6 @@ ipcMain.on("ipc_create_task_window", () => {
   );
 });
 ipcMain.on("ipc_close_new_task", (event) => {
-  baseWin.webContents.send("fresh_list");
+  baseWin.webContents.send("ipc_addtask_fresh");
   newTaskWindow && newTaskWindow.close();
 });
