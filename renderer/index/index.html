@@ -1,3 +1,10 @@
+<!--
+ * @Author: xuwei
+ * @Date: 2020-10-09 19:44:35
+ * @LastEditTime: 2020-10-11 20:29:17
+ * @LastEditors: xuwei
+ * @Description: 
+-->
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -19,8 +26,9 @@
       <button id="send_notify">发送通知</button>
       <button id="add_new_task">新窗口</button>
 
-      <div class="list-group mt-4 mb-4" id="main_list">
-        <button type="button" class="list-group-item list-group-item-action">
+      <h4>Todo</h4>
+      <div class="list-group mb-4" id="main_list">
+        <div type="button" class="list-group-item list-group-item-action">
           <div style="float: left">
             <h5>12:30</h5>
           </div>
@@ -28,13 +36,30 @@
             <h5 style="margin-left: 20px">AAAA</h5>
             <span style="margin-left: 20px">aaaa</span>
           </div>
-          <!-- <div class="f_center operate_btn">
+          <div class="f_center operate_btn">
             <span style="color: blanchedalmond">完成</span>
           </div>
           <div class="f_center operate_btn">
             <span style="color: blanchedalmond">舍弃</span>
-          </div> -->
-        </button>
+          </div>
+        </div>
+        <h4>Finish</h4>
+        <div class="list-group mb-4" id="main_list">
+          <button type="button" class="list-group-item list-group-item-action">
+            <div style="float: left">
+              <h5>12:30</h5>
+            </div>
+            <div style="float: left">
+              <h5 style="margin-left: 20px">AAAA</h5>
+              <span style="margin-left: 20px">aaaa</span>
+            </div>
+            <div class="f_center operate_btn">
+              <span style="color: blanchedalmond">完成</span>
+            </div>
+            <div class="f_center operate_btn">
+              <span style="color: blanchedalmond">舍弃</span>
+            </div>
+          </button>
         <!-- <button type="button" class="list-group-item list-group-item-action">
           Dapibus ac facilisis in
         </button>

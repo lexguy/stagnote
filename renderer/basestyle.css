@@ -1,3 +1,9 @@
+h4 {
+  font-size: 24px;
+  line-height: 24px;
+  padding: 0;
+  margin: 10px 0;
+}
 .f_center {
   display: flex;
   justify-content: center;

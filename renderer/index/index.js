@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-29 12:29:23
- * @LastEditTime: 2020-10-10 01:22:00
+ * @LastEditTime: 2020-10-11 20:22:42
  * @LastEditors: xuwei
  * @Description:
  */
@@ -16,7 +16,7 @@ const sendBtn = document.getElementById("send_notify");
 const newTaskBtn = document.getElementById("add_new_task");
 
 document.addEventListener("DOMContentLoaded", () => {
-  freshTodoList();
+  // freshTodoList();
 });
 
 sendBtn.addEventListener("click", () => {
@@ -40,10 +40,6 @@ ipcRenderer.on("fresh_list", () => {
   freshTodoList();
 });
 
-function onTodoAbandonPress(id) {
-  console.info("todo", id);
-}
-
 function freshTodoList() {
   const list = store.getDayData();
   let html = `<div class="list-group mt-4" id="main_list">`;
@@ -61,19 +57,21 @@ function freshTodoList() {
         <span style="margin-left: 20px">${element.remarks}</span>
       </div>`;
     if (element.status === ISTATUS.TODO) {
-      html += `<div class="f_center operate_btn" id="todo_finish" onclick="onTodoAbandonPress(${params})">
-      <span style="color: blanchedalmond">完成</span>
+      html += `
+      <div class="f_center operate_btn" id="todo_abandon" style="margin-left:10px" onclick="onTodoAbandonPress(${params})">
+        <span style="color: #a00">舍弃</span>
       </div>
-      <div class="f_center operate_btn" id="todo_abandon">
-        <span style="color: blanchedalmond">舍弃</span>
-      </div>`;
+      <div class="f_center operate_btn" id="todo_finish" onclick="onTodoFinishPress(${params})">
+        <span style="color: #333">完成</span>
+      </div>
+      `;
     } else if (element.status === ISTATUS.FINISH) {
       html += `<div class="f_center operate_btn" id="finish">
-      <span style="color: blanchedalmond">已完成</span>
+      <span style="color: #666">已完成</span>
       </div>`;
     } else if (element.status === ISTATUS.ABANDON) {
-      html += `<div class="f_center operate_btn" id="abandon">
-      <span style="color: blanchedalmond">已被舍弃</span>
+      html += `<div class="f_center operate_btn" id="abandon" onclick="onAbandonPress(${params})">
+      <span style="color: #999;text-decoration: line-through">已被舍弃</span>
       </div>`;
     }
     html += `</button>`;
@@ -87,6 +85,24 @@ function freshTodoList() {
 }
 
 //---------------舍弃 完成 的点击---------------------
+
+function onTodoAbandonPress(id) {
+  console.info("todo", id);
+  store.changeItemStatus(id, ISTATUS.ABANDON);
+  freshTodoList();
+}
+
+function onTodoFinishPress(id) {
+  console.info("todo", id);
+  store.changeItemStatus(id, ISTATUS.FINISH);
+  freshTodoList();
+}
+
+// 重新打开
+function onAbandonPress(id) {
+  store.changeItemStatus(id, ISTATUS.TODO);
+  freshTodoList();
+}
 
 function initOperateEle() {
   const btnTodoFinish = document.querySelectorAll(

@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-30 14:50:45
- * @LastEditTime: 2020-10-10 00:29:37
+ * @LastEditTime: 2020-10-11 20:09:24
  * @LastEditors: xuwei
  * @Description
  */
@@ -19,6 +19,7 @@
 
 const Store = require("electron-store");
 const { v4: uuidv4 } = require("uuid");
+const { ISTATUS } = require("../../renderer/constants");
 const { getDayKeyName, getJSONFileName } = require("../utils/strings");
 
 const fileName = getJSONFileName();
@@ -45,12 +46,20 @@ class DataStore extends Store {
     return this.get(key) || [];
   };
 
+  // 添加每条事务
   addSingleData = (item) => {
     const singData = {
       id: uuidv4(),
       ...item,
     };
     this.curData.push(singData);
+    return this.saveDayData();
+  };
+
+  // 改变该条状态
+  changeItemStatus = (id, STATUS) => {
+    const target = this.curData.find((item) => item.id === id);
+    target.status = STATUS;
     return this.saveDayData();
   };
 }
