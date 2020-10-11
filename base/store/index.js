@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-30 14:50:45
- * @LastEditTime: 2020-10-11 20:09:24
+ * @LastEditTime: 2020-10-11 23:36:41
  * @LastEditors: xuwei
  * @Description
  */
@@ -48,17 +48,21 @@ class DataStore extends Store {
 
   // 添加每条事务
   addSingleData = (item) => {
+    console.info("111");
     const singData = {
       id: uuidv4(),
       ...item,
     };
     this.curData.push(singData);
-    return this.saveDayData();
+    console.info("afteradd", this.curData);
+    this.saveDayData();
   };
 
   // 改变该条状态
   changeItemStatus = (id, STATUS) => {
+    console.info("this.curData", this.curData);
     const target = this.curData.find((item) => item.id === id);
+    console.info("target", target);
     target.status = STATUS;
     return this.saveDayData();
   };
