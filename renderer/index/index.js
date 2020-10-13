@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-29 12:29:23
- * @LastEditTime: 2020-10-11 23:25:42
+ * @LastEditTime: 2020-10-13 23:20:54
  * @LastEditors: xuwei
  * @Description:
  */
@@ -11,6 +11,7 @@ const { app, ipcRenderer } = require("electron");
 const store = require("../../base/store/index");
 const { $ } = require("../../base/bind");
 const { ISTATUS } = require("../constants");
+const { getHourAndMinute } = require("../../base/utils/strings");
 
 const sendBtn = document.getElementById("send_notify");
 const newTaskBtn = document.getElementById("add_new_task");
@@ -39,28 +40,44 @@ newTaskBtn.addEventListener("click", () => {
 
 ipcRenderer.on("ipc_addtask_fresh", () => {
   freshTodoList();
+  freshTimeClock();
   // freshAll();
 });
+
+// 刷新提醒
+function freshTimeClock() {
+  const todoList = store.getDayData().todo;
+  const firItem = todoList[0];
+  const timeout = firItem.time - parseInt(new Date().getTime() / 1000);
+  console.info("timeout", timeout);
+  setTimeout(() => {
+    const myNotification = new Notification(firItem.title, {
+      body: firItem.remarks,
+      timeoutType: "never",
+      tag: "stag",
+    });
+  }, timeout * 1000);
+}
 
 //---------------舍弃 完成 的点击 start
 
 function onTodoAbandonPress(id) {
-  console.info("abandon", id);
-  store.changeItemStatus(id, ISTATUS.ABANDON);
+  // console.info("abandon", id);
+  store.changeItemStatus(id, ISTATUS.TODO, ISTATUS.ABANDON);
   freshTodoList();
   freshAbandonList();
 }
 
 function onTodoFinishPress(id) {
-  console.info("todo", id);
-  store.changeItemStatus(id, ISTATUS.FINISH);
+  // console.info("todo", id);
+  store.changeItemStatus(id, ISTATUS.TODO, ISTATUS.FINISH);
   freshTodoList();
   freshFinishList();
 }
 
 // 重新打开
 function onAbandonPress(id) {
-  store.changeItemStatus(id, ISTATUS.TODO);
+  store.changeItemStatus(id, ISTATUS.ABANDON, ISTATUS.TODO);
   freshTodoList();
   freshAbandonList();
 }
@@ -78,9 +95,7 @@ function freshAll() {
 // 刷新 Todo 列表
 function freshTodoList() {
   const todoDoc = $("todo_list");
-  const todoList = store
-    .getDayData()
-    .filter((item) => item.status === ISTATUS.TODO);
+  const todoList = store.getDayData().todo;
   console.info("todoList", todoList);
   if (todoList.length > 0) {
     let todohtml = `<h4>Todo</h4><div class="list-group mb-4 mt-4" id="main_list">`;
@@ -88,7 +103,8 @@ function freshTodoList() {
       const params = "`" + element.id + "`";
       todohtml += `
       <div type="button" class="list-group-item">
-        <div style="float: left"><h5>12:30</h5></div>
+        <div style="float: left"><h5>
+        ${getHourAndMinute(element.time)}</h5></div>
         <div style="float: left">
           <h5 style="margin-left: 20px">${element.title}</h5>
           <span style="margin-left: 20px">${element.remarks}</span>
@@ -107,9 +123,7 @@ function freshTodoList() {
 
 function freshFinishList() {
   const finishDoc = $("finish_list");
-  const finishList = store
-    .getDayData()
-    .filter((item) => item.status === ISTATUS.FINISH);
+  const finishList = store.getDayData().finish;
   if (finishList.length > 0) {
     let finishhtml = `<h4>已完成</h4><div class="list-group mb-4 mt-4" id="main_list">`;
     finishList.forEach((element) => {
@@ -132,9 +146,7 @@ function freshFinishList() {
 
 function freshAbandonList() {
   const abandonDoc = $("abandon_list");
-  const abandonList = store
-    .getDayData()
-    .filter((item) => item.status === ISTATUS.ABANDON);
+  const abandonList = store.getDayData().abandon;
   if (abandonList.length > 0) {
     let abandonhtml = `<h4>舍弃</h4><div class="list-group mb-4 mt-4" id="main_list">`;
     abandonList.forEach((element) => {

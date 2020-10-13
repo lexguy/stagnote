@@ -1,7 +1,7 @@
 <!--
  * @Author: xuwei
  * @Date: 2020-09-30 09:48:39
- * @LastEditTime: 2020-09-30 14:36:47
+ * @LastEditTime: 2020-10-13 21:47:18
  * @LastEditors: xuwei
  * @Description: 
 -->
@@ -15,6 +15,7 @@
       rel="stylesheet"
       href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="../basestyle.css" />
   </head>
   <body>
     <div class="container-lg">
@@ -28,14 +29,15 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Dropdown
+            选择
           </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div role="separator" class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+          <div id="choice" class="choice hid">
+            <!-- <span class="timeset">2小时后</span>
+            <span class="timeset">4小时后</span>
+            <span class="timeset">6小时后</span>
+            <span class="timeset">8小时后</span>
+            <span class="timeset">10小时后</span>
+            <span class="timeset">12小时后</span> -->
           </div>
         </div>
         <input

@@ -50,3 +50,28 @@ h4 {
   color: #fff;
   background-color: rgb(23, 63, 23);
 }
+
+.timeset {
+  display: block;
+  margin-bottom: 5px;
+  height: 30px;
+  line-height: 30px;
+  /* width: "100%"; */
+  background-color: #eee;
+  color: #333;
+  text-align: center;
+}
+.timeset:hover {
+  background-color: rgb(20, 70, 51);
+  color: #fff;
+}
+.choice {
+  background-color: #ddd;
+  width: 100px;
+  /* height: 210px; */
+  position: absolute;
+  z-index: 10;
+}
+.hid {
+  visibility: hidden;
+}

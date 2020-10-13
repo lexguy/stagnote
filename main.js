@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-08-10 12:33:53
- * @LastEditTime: 2020-10-11 21:41:25
+ * @LastEditTime: 2020-10-13 23:45:32
  * @LastEditors: xuwei
  * @Description:
  */
@@ -16,7 +16,7 @@ let baseWin = null;
 function createWindow() {
   // 创建浏览器窗口
   baseWin = new StagWindow(
-    { width: 800, height: 600 },
+    { width: 600, height: 1200 },
     "./renderer/index/index.html"
   );
 
@@ -60,11 +60,11 @@ app.setAppUserModelId("stagnote");
 let newTaskWindow = null;
 ipcMain.on("ipc_create_task_window", () => {
   newTaskWindow = new StagWindow(
-    { width: 600, height: 300 },
+    { width: 500, height: 400 },
     "./renderer/newtask/newtask.html"
   );
 });
-ipcMain.on("ipc_close_new_task", (event) => {
+ipcMain.on("ipc_addtask_success", (event) => {
   baseWin.webContents.send("ipc_addtask_fresh");
   newTaskWindow && newTaskWindow.close();
 });
