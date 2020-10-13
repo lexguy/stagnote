@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-30 14:50:45
- * @LastEditTime: 2020-10-11 23:36:41
+ * @LastEditTime: 2020-10-13 10:46:57
  * @LastEditors: xuwei
  * @Description
  */
@@ -30,14 +30,16 @@ const keyName = getDayKeyName();
 
 const key = keyName;
 
+// 改变curData变量之后set到store保存，下次使用通过get从store取
+// 避免直接直接使用curData成员变量，跨渲染进程读到的curData不一致（原因待查
 class DataStore extends Store {
   constructor(setting) {
     super(setting);
-    this.curData = this.get(key) || [];
+    this.curData = this.getDayData();
   }
 
-  saveDayData = () => {
-    this.set(key, this.curData);
+  saveDayData = (data) => {
+    this.set(key, data);
     return this;
   };
 
@@ -48,23 +50,21 @@ class DataStore extends Store {
 
   // 添加每条事务
   addSingleData = (item) => {
-    console.info("111");
-    const singData = {
+    const singleData = {
       id: uuidv4(),
       ...item,
     };
-    this.curData.push(singData);
-    console.info("afteradd", this.curData);
-    this.saveDayData();
+    this.curData.push(singleData);
+    this.saveDayData(this.curData);
   };
 
   // 改变该条状态
   changeItemStatus = (id, STATUS) => {
-    console.info("this.curData", this.curData);
-    const target = this.curData.find((item) => item.id === id);
-    console.info("target", target);
+    const storeData = this.getDayData(); //跨渲染进程时需要重新读取
+    const target = storeData.find((item) => item.id === id);
+    // console.info("target", target);
     target.status = STATUS;
-    return this.saveDayData();
+    return this.saveDayData(storeData);
   };
 }
 
