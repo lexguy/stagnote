@@ -1,0 +1,59 @@
+
+
+.top_head{
+  position: fixed;
+  width: 100vw;
+  height: 40px;
+  background-color: rgb(28, 59, 57);
+  z-index: 100;
+}
+.index_root{
+  padding-top: 40px;
+  display: flex;
+  /* flex-direction: row; */
+}
+.container{
+  display: flex;
+  flex:1;
+  flex-direction: column;
+  margin-left: 200px;
+  padding-top: 40px;
+  border-left: 2px solid #ddd;
+}
+.left{
+  position: fixed;
+  width: 200px;
+  height: calc(100% - 40px );
+  /* background-color: #a00; */
+  /* border-right: 2px solid #999; */
+}
+.curweek{
+  /* margin-top: 50px; */
+  background-color: #e9e9e9;
+  padding-left: 10px;
+}
+.week_text{
+  display: inline-block; 
+  font-size: 24px;
+  color: #666;
+  padding: 10px;
+}
+#week_icon{
+  display: inline-block;
+  color:rgb(44, 94, 90);
+  font-size: 24px;
+}
+.weekarray{
+  display: flex;
+  flex-direction: column;
+  /* padding-left: 10px; */
+}
+.week_item{
+  display: inline-block;
+  padding: 10px 10px 10px 20px;
+  border-bottom: 1px solid rgb(28, 59, 57,0.3);
+}
+.week_item:hover{
+  background-color:  rgba(24, 53, 32, 1);
+  color: #fff;
+}

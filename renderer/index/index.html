@@ -12,19 +12,33 @@
       href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="../basestyle.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="../../source/iconfont/iconfont.css" />
   </head>
   <body>
-    <div class="container">
-      <div id="fun" style="margin: 20px 0">
-        <button id="send_notify">发送通知</button>
-        <button id="add_new_task">新任务</button>
-      </div>
-      <div id="main_view">
-        <div id="todo_list"></div>
-        <div id="finish_list"></div>
-        <div id="abandon_list"></div>
+      <div class="top_head"></div>
+      <div class="index_root">
+        <div class="left">
+          <div class="curweek">
+            <i class="iconfont" id="week_icon">&#xe7b9;</i>
+            <span class="week_text">本周</span>
+          </div>
+          <div id="weekarray" class="weekarray"></div>
+        </div>
+        <div class="container">
+          <div id="fun" style="margin: 20px 0">
+            <button id="send_notify">发送通知</button>
+            <button id="add_new_task">新任务</button>
+          </div>
+          <div id="main_view">
+            <div id="todo_list"></div>
+            <div id="finish_list"></div>
+            <div id="abandon_list"></div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
   <script src="./index.js"></script>
+  <script src="./leftpannel.js"></script>
 </html>
