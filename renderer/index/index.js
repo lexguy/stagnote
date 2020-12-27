@@ -1,8 +1,8 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-29 12:29:23
- * @LastEditTime: 2020-10-13 23:20:54
- * @LastEditors: xuwei
+ * @LastEditTime: 2020-12-28 01:48:24
+ * @LastEditors: xuxiaowei
  * @Description:
  */
 
@@ -98,7 +98,9 @@ function freshTodoList() {
   const todoList = store.getDayData().todo;
   console.info("todoList", todoList);
   if (todoList.length > 0) {
-    let todohtml = `<h4>Todo</h4><div class="list-group mb-4 mt-4" id="main_list">`;
+    let todohtml = `<h4 class="cate_title">
+    <i class="iconfont" id="todo_icon">&#xee6d;</i>
+    TODO</h4><div class="list-group mb-4 mt-4" id="main_list">`;
     todoList.forEach((element) => {
       const params = "`" + element.id + "`";
       todohtml += `
@@ -125,7 +127,9 @@ function freshFinishList() {
   const finishDoc = $("finish_list");
   const finishList = store.getDayData().finish;
   if (finishList.length > 0) {
-    let finishhtml = `<h4>已完成</h4><div class="list-group mb-4 mt-4" id="main_list">`;
+    let finishhtml = `<h4 class="cate_title">
+    <i class="iconfont" id="todo_icon">&#xe610;</i>
+    已完成</h4><div class="list-group mb-4 mt-4" id="main_list">`;
     finishList.forEach((element) => {
       const params = "`" + element.id + "`";
       finishhtml += `
@@ -135,7 +139,8 @@ function freshFinishList() {
           <h5 style="margin-left: 20px">${element.title}</h5>
           <span style="margin-left: 20px">${element.remarks}</span>
         </div>
-        <span class="opebase">已完成</span>
+        <i class="iconfont" id="todo_item_icon">&#xe63c;</i>
+
       </div>
     `;
     });
@@ -148,7 +153,9 @@ function freshAbandonList() {
   const abandonDoc = $("abandon_list");
   const abandonList = store.getDayData().abandon;
   if (abandonList.length > 0) {
-    let abandonhtml = `<h4>舍弃</h4><div class="list-group mb-4 mt-4" id="main_list">`;
+    let abandonhtml = `<h4 class="cate_title">
+    <i class="iconfont" id="todo_icon">&#xe88b;</i>
+    舍弃</h4><div class="list-group mb-4 mt-4" id="main_list">`;
     abandonList.forEach((element) => {
       const params = "`" + element.id + "`";
       abandonhtml += `
