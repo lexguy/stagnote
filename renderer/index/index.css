@@ -57,6 +57,10 @@
   padding: 10px 10px 10px 20px;
   border-bottom: 1px solid rgb(28, 59, 57,0.3);
 }
+.week_check{
+  background-color:rgba(24, 53, 32, 0.9);
+  color: #fff;
+}
 .week_item:hover{
   background-color:  rgba(24, 53, 32, 1);
   color: #fff;
