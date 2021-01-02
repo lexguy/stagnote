@@ -58,11 +58,15 @@
   border-bottom: 1px solid rgb(28, 59, 57,0.3);
 }
 .week_check{
-  background-color:rgba(24, 53, 32, 0.9);
+  background-color:#999;
   color: #fff;
 }
+.week_cur{
+  font-size: 21px;
+  font-weight: bold;
+}
 .week_item:hover{
-  background-color:  rgba(24, 53, 32, 1);
+  background-color:  #999;
   color: #fff;
 }
 .cate_title{

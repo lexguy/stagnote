@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-29 12:29:23
- * @LastEditTime: 2020-12-28 01:48:24
+ * @LastEditTime: 2021-01-02 21:03:16
  * @LastEditors: xuxiaowei
  * @Description:
  */
@@ -15,6 +15,8 @@ const { getHourAndMinute } = require("../../base/utils/strings");
 
 const sendBtn = document.getElementById("send_notify");
 const newTaskBtn = document.getElementById("add_new_task");
+
+let notifyTimer = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   // freshTodoList();
@@ -40,23 +42,32 @@ newTaskBtn.addEventListener("click", () => {
 
 ipcRenderer.on("ipc_addtask_fresh", () => {
   freshTodoList();
-  freshTimeClock();
   // freshAll();
 });
 
-// 刷新提醒
-function freshTimeClock() {
-  const todoList = store.getDayData().todo;
-  const firItem = todoList[0];
-  const timeout = firItem.time - parseInt(new Date().getTime() / 1000);
-  console.info("timeout", timeout);
-  setTimeout(() => {
+// 刷新 timer
+function freshTimeClock(firItem, todoIndex, timeout) {
+  notifyTimer && clearTimeout(notifyTimer);
+  notifyTimer = setTimeout(() => {
     const myNotification = new Notification(firItem.title, {
       body: firItem.remarks,
       timeoutType: "never",
       tag: "stag",
     });
+    dealNextTodo(todoIndex + 1);
   }, timeout * 1000);
+}
+
+//
+function dealNextTodo(todoIndex) {
+  const todoList = store.getDayData().todo;
+  if (todoList.length === 0 || todoList.length === todoIndex) {
+    return;
+  }
+  const firItem = todoList[todoIndex];
+  const timeout = firItem.time - parseInt(new Date().getTime() / 1000);
+  console.info("timeout", timeout);
+  timeout > 0 && freshTimeClock(firItem, todoIndex, timeout);
 }
 
 //---------------舍弃 完成 的点击 start
@@ -118,6 +129,7 @@ function freshTodoList() {
     });
     todohtml += `</div>`;
     todoDoc.innerHTML = todohtml;
+    dealNextTodo(0);
   } else {
     todoDoc.innerHTML = ``;
   }
