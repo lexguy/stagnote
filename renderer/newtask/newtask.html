@@ -1,8 +1,8 @@
 <!--
  * @Author: xuwei
  * @Date: 2020-09-30 09:48:39
- * @LastEditTime: 2020-10-13 21:47:18
- * @LastEditors: xuwei
+ * @LastEditTime: 2021-01-03 23:23:38
+ * @LastEditors: xuxiaowei
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -52,14 +52,20 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">资料/备注</span>
         </div>
-        <input
+        <!-- <input
           id="remarks_input"
           type="text"
           class="form-control"
           placeholder="url..."
           aria-label="Username"
           aria-describedby="addon-wrapping"
-        />
+        /> -->
+        <textarea
+          id="remarks_input"
+          type="text"
+          class="form-control"
+          rows="3"
+        ></textarea>
       </div>
       <button
         id="confirm_btn"

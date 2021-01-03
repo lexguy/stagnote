@@ -1,8 +1,8 @@
 /*
  * @Author: xuwei
  * @Date: 2020-09-30 09:48:47
- * @LastEditTime: 2020-10-13 23:16:06
- * @LastEditors: xuwei
+ * @LastEditTime: 2021-01-03 23:24:12
+ * @LastEditors: xuxiaowei
  * @Description:
  */
 
@@ -32,7 +32,7 @@ dropdownBtn.addEventListener("click", () => {
   choiceDoc.className = `choice`;
 });
 registerEnterKeyEvent(mainInput, () => remarksInput.focus());
-registerEnterKeyEvent(remarksInput, confirmInput);
+// registerEnterKeyEvent(remarksInput, confirmInput);
 confirmBtn.addEventListener("click", confirmInput);
 
 function onTimePress(time) {
